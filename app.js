@@ -69,5 +69,5 @@ mongoose
     console.log("MongoDB Connected..");
   })
   .catch((err) => {
-    console.log("ERRORRRRR");
+    console.log("ERRORRRRR hai bhai");
   });
