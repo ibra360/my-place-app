@@ -34,7 +34,7 @@ mongoose
     console.log("MongoDB Connected..");
   })
   .catch((err) => {
-    console.log(err);
+    console.log("ERRORRRRR");
   });
 
   // Serve static assets if in production
