@@ -25,17 +25,7 @@ app.use((req, res, next) => {
 
   next();
 });
-mongoose
-  .connect(
-    "mongodb+srv://abd:abd123@bismillah-f5fdy.mongodb.net/theft?retryWrites=true&w=majority",
-    { useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true }
-  )
-  .then(() => {
-    console.log("MongoDB Connected..");
-  })
-  .catch((err) => {
-    console.log("ERRORRRRR");
-  });
+
 
   // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -70,4 +60,14 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-
+mongoose
+  .connect(
+    "mongodb+srv://abd:abd123@bismillah-f5fdy.mongodb.net/theft?retryWrites=true&w=majority",
+    { useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log("MongoDB Connected..");
+  })
+  .catch((err) => {
+    console.log("ERRORRRRR");
+  });
