@@ -26,13 +26,20 @@ app.use((req, res, next) => {
   next();
 });
 
+mongoose
+  .connect(
+    "mongodb+srv://abd:abd123@bismillah-f5fdy.mongodb.net/theft?retryWrites=true&w=majority",
+    { useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log("MongoDB Connected..");
+  })
+  .catch((err) => {
+    console.log("ERRORRRRR hai bhai");
+  });
+
 app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
-
-app.use((req, res, next) => {
-  const error = new HttpError("Could not find this route.", 404);
-  throw error;
-});
 
 app.use((error, req, res, next) => {
   if (req.file) {
@@ -47,17 +54,7 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-mongoose
-  .connect(
-    "mongodb+srv://abd:abd123@bismillah-f5fdy.mongodb.net/theft?retryWrites=true&w=majority",
-    { useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true }
-  )
-  .then(() => {
-    console.log("MongoDB Connected..");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const port = process.env.PORT || 4000; //hosting purpose..
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -69,5 +66,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.PORT || 5000; //hosting purpose..
+app.use((req, res, next) => {
+  const error = new HttpError("Could not find this route.", 404);
+  throw error;
+});
+
 app.listen(port, () => console.log(`Server Started on port ${port}`));
