@@ -26,9 +26,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
+app.use("/api/places", placesRoutes);
+app.use("/api/users", usersRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
@@ -57,16 +56,10 @@ mongoose
     console.log("MongoDB Connected..");
   })
   .catch((err) => {
-    console.log("ERRORRRRR hai bhai");
+    console.log(err);
   });
 
-
-  app.use("/api/places", placesRoutes);
-app.use("/api/users", usersRoutes);
-
-  const port = process.env.PORT || 5000; //hosting purpose..
-
-  // Serve static assets if in production
+// Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"));
@@ -76,5 +69,5 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-
+const port = process.env.PORT || 5000; //hosting purpose..
 app.listen(port, () => console.log(`Server Started on port ${port}`));
